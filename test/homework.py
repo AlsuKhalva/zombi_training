@@ -12,12 +12,12 @@ def app(request):
 
 
 def test_homework(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.creat_group(Group(name="Zombi", header="zombi", footer="zombi"))
-    app.logout()
+    app.session.logout()
 
 
 def test_empty_homework(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.creat_group(Group(name="", header="", footer=""))
-    app.logout()
+    app.session.logout()
