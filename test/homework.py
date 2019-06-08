@@ -13,11 +13,11 @@ def app(request):
 
 def test_homework(app):
     app.session.login(username="admin", password="secret")
-    app.creat_group(Group(name="Zombi", header="zombi", footer="zombi"))
+    app.group.create(Group(name="Zombi", header="zombi", footer="zombi"))
     app.session.logout()
 
 
 def test_empty_homework(app):
     app.session.login(username="admin", password="secret")
-    app.creat_group(Group(name="", header="", footer=""))
+    app.group.create(Group(name="", header="", footer=""))
     app.session.logout()
