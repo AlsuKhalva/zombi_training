@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-from fixture.cont_session import SessionHelper
-from fixture.cont_form import GroupHelper
+from fixture.contact_session import SessionHelper
+from fixture.contact_form import GroupHelper
 
 class Applicaton:
 
@@ -10,7 +10,7 @@ class Applicaton:
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
         self.session = SessionHelper(self)
-        self.cont_form = GroupHelper(self)
+        self.form = GroupHelper(self)
 
     def open_home_page(self):
         wd = self.wd
