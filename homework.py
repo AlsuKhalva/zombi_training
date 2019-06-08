@@ -4,20 +4,20 @@ from hw_group import Group
 from hw_application import Application
 
 
-@pytest.fixture()
+@pytest.fixture
 def app(request):
     fixture = Application()
-    request.addfnaliser(fixture.destroy)
+    request.addfinalizer(fixture.destroy)
     return fixture
 
 
 def test_homework(app):
-        app.login(username="admin", password="secret")
-        app.creat_group(Group(name="Zombi", header="zombi", footer="zombi"))
-        app.logout()
+    app.login(username="admin", password="secret")
+    app.creat_group(Group(name="Zombi", header="zombi", footer="zombi"))
+    app.logout()
 
 
 def test_empty_homework(app):
-        app.login(username="admin", password="secret")
-        app.creat_group(Group(name="", header="", footer=""))
-        app.logout()
+    app.login(username="admin", password="secret")
+    app.creat_group(Group(name="", header="", footer=""))
+    app.logout()
