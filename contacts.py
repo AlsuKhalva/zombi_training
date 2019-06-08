@@ -26,7 +26,7 @@ class Contacts(unittest.TestCase):
 
     def return_to_home_page(self, wd):
         wd.find_element_by_xpath(
-            "(.//*[normalize-space(text()) and normalize-space(.)='Notes:'])[1]/following::input[1]").click()
+            "(//input[@name='submit'])[2]").click()
         wd.find_element_by_link_text("home page").click()
 
     def contact_form(self, wd, Group):
@@ -58,15 +58,15 @@ class Contacts(unittest.TestCase):
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(Group.email)
-        wd.find_element_by_name("bday").click()
         # bday
+        wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text(Group.day)
         wd.find_element_by_xpath(
-            "(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[12]").click()
+            "//option[@value='10']").click()
         wd.find_element_by_name("bmonth").click()
         Select(wd.find_element_by_name("bmonth")).select_by_visible_text(Group.month)
         wd.find_element_by_xpath(
-            "(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[38]").click()
+            "//option[@value='April']").click()
         wd.find_element_by_name("byear").click()
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(Group.year)
