@@ -2,16 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from fixture.session import SessionHelper
 
 class Applicaton:
 
     def __init__(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
-
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
+        self.session = SessionHelper(self)
 
     def return_to_home_page(self):
         wd = self.wd
@@ -77,16 +75,6 @@ class Applicaton:
     def add_new_contact(self):
         wd = self.wd
         wd.find_element_by_link_text("add new").click()
-
-    def login(self, login="admin", password="secret"):
-        wd = self.wd
-        self.open_home_page()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(login)
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
 
     def open_home_page(self):
         wd = self.wd
