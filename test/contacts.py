@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
-from cont_group import Group
-from cont_applicaton import Applicaton
+from model.cont_group import Group
+from fixture.cont_applicaton import Applicaton
 
 
 @pytest.fixture
