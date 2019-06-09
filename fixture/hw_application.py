@@ -4,6 +4,7 @@ from selenium.common.exceptions import NoAlertPresentException
 from fixture.hw_session import SessionHelper
 from fixture.hw_group import GroupHelper
 
+
 class Application:
 
     def __init__(self):
