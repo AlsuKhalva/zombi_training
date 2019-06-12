@@ -1,4 +1,4 @@
-class GroupHelper:
+class FormHelper:
 
     def __init__(self, app):
         self.app = app
@@ -65,7 +65,16 @@ class GroupHelper:
         wd.find_element_by_name("notes").send_keys(Contact.notes)
         self.return_to_home_page()
 
-    def add_new_contact(self):
+    def delete_first_contact(self):
+        wd = self.app.wd
+        # select first group
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_xpath("(//input[@value='Delete']").click()
+
+
+
+def add_new_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
