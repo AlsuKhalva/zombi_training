@@ -1,6 +1,5 @@
 import pytest
-from fixture.contact_application import Application
-from fixture.hw_application import Application
+from fixture.application import Application
 
 
 @pytest.fixture(scope="session")
