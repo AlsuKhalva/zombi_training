@@ -142,6 +142,20 @@ class FormHelper:
         wd.find_element_by_name("notes").send_keys(contact.notes)
         self.return_to_home_page()
 
+    def edit_first_contact(self):
+        wd = self.app.wd
+        # edit contact
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # name form
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys("Kroha")
+        wd.find_element_by_name("middlename").click()
+        wd.find_element_by_name("middlename").clear()
+        wd.find_element_by_name("middlename").send_keys("Kartoha")
+        # submit update
+        wd.find_element_by_name("update").click()
+
     def delete_first_contact(self):
         wd = self.app.wd
         # select first group
