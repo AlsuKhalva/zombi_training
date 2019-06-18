@@ -15,7 +15,6 @@ class Application:
         self.group = GroupHelper(self)
         self.form = FormHelper(self)
 
-
     def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
