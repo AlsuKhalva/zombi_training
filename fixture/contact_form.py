@@ -1,4 +1,3 @@
-
 class FormHelper:
 
     def __init__(self, app):
@@ -12,14 +11,14 @@ class FormHelper:
 
     def create(self, contact):
         self.add_new_contact()
-        self.fill_form(contact)
+        self.fill_contact_form(contact)
         self.return_to_home_page()
 
-    def edit_first_contact(self, contact):
+    def edit_first_contact(self, new_contact_data):
         wd = self.app.wd
         # edit contact
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        self.fill_form(contact)
+        self.fill_contact_form(new_contact_data)
         # submit update
         wd.find_element_by_name("update").click()
 
@@ -35,35 +34,40 @@ class FormHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def fill_form(self, contact):
+    def fill_contact_form(self, contact):
+        self.change_field_value("firstname", contact.first_name)
+        self.change_field_value("lastname", contact.last_name)
+        self.change_field_value("mobile", contact.mobil)
+        self.change_field_value("email", contact.email)
+        self.change_field_value("bday", contact.day)
+        self.change_field_value("bmonth", contact.month)
+        self.change_field_value("byear", contact.year)
+        self.change_field_value("notes", contact.notes)
+
+    def select_month(self):
         wd = self.app.wd
-        # name
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.first_name)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.last_name)
-        # phone/email
-        wd.find_element_by_name("mobile").click()
-        wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(contact.mobil)
-        wd.find_element_by_name("email").click()
-        wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(contact.email)
-        # bday
-        wd.find_element_by_name("bday").click()
-        wd.find_element_by_name("bday").send_keys(contact.day)
-        wd.find_element_by_xpath(
-            "//option[@value='10']").click()
         wd.find_element_by_name("bmonth").click()
-        wd.find_element_by_name("bmonth").send_keys(contact.month)
-        wd.find_element_by_xpath(
-            "//option[@value='April']").click()
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys(contact.year)
-        # other
-        wd.find_element_by_name("notes").click()
-        wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys(contact.notes)
+        wd.find_element_by_xpath("//option[@value='April']").click()
+
+    def select_day(self):
+        wd = self.app.wd
+        wd.find_element_by_name("bday").click()
+        wd.find_element_by_xpath("//option[@value='4']").click()
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            if field_name == "bday":
+                self.select_day()
+
+            elif field_name == "bmonth":
+                self.select_month()
+
+            else:
+                wd.find_element_by_name(field_name).click()
+                wd.find_element_by_name(field_name).clear()
+                wd.find_element_by_name(field_name).send_keys(text)
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
