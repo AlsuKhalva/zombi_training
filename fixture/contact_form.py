@@ -1,3 +1,6 @@
+from model.contact import Contact
+
+
 class FormHelper:
 
     def __init__(self, app):
@@ -13,18 +16,15 @@ class FormHelper:
 
     def edit_first_contact(self, new_contact_data):
         wd = self.app.wd
-        # edit contact
+        self.app.open_home_page()
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.fill_contact_form(new_contact_data)
-        # submit update
         wd.find_element_by_name("update").click()
-        self.app.open_home_page()
 
     def delete_first_contact(self):
         wd = self.app.wd
-        # select first group
+        self.app.open_home_page()
         wd.find_element_by_name("selected[]").click()
-        # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.app.open_home_page()
@@ -70,3 +70,13 @@ class FormHelper:
     def count(self):
         wd = self.app.wd
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contacts_list(self):
+        wd = self.app.wd
+        self.app.open_home_page()
+        contacts = []
+        for element in wd.find_elements_by_css_selector("tr[name='entry']"):
+            el_first_name = element.text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(first_name=el_first_name, id=id))
+        return contacts
