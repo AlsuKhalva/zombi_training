@@ -3,16 +3,13 @@ class FormHelper:
     def __init__(self, app):
         self.app = app
 
-    def return_to_home_page(self):
-        wd = self.app.wd
-        wd.find_element_by_xpath(
-            "(//input[@name='submit'])[2]").click()
-        wd.find_element_by_link_text("home page").click()
-
     def create(self, contact):
+        wd = self.app.wd
         self.add_new_contact()
         self.fill_contact_form(contact)
-        self.return_to_home_page()
+        wd.find_element_by_xpath(
+            "(//input[@name='submit'])[2]").click()
+        self.app.open_home_page()
 
     def edit_first_contact(self, new_contact_data):
         wd = self.app.wd
@@ -21,6 +18,7 @@ class FormHelper:
         self.fill_contact_form(new_contact_data)
         # submit update
         wd.find_element_by_name("update").click()
+        self.app.open_home_page()
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -29,6 +27,7 @@ class FormHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        self.app.open_home_page()
 
     def add_new_contact(self):
         wd = self.app.wd
