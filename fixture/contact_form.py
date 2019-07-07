@@ -15,22 +15,35 @@ class FormHelper:
         self.app.open_home_page()
         self.user_cache = None
 
-    def edit_first_contact(self, new_contact_data):
+    def edit_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def edit_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.app.open_home_page()
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.select_edit_contact_by_index(index)
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.user_cache = None
 
-    def delete_first_contact(self):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.app.open_home_page()
         self.user_cache = None
+
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_edit_contact_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_elements_by_css_selector("img[alt='Edit']")[index].click()
 
     def add_new_contact(self):
         wd = self.app.wd
@@ -72,7 +85,8 @@ class FormHelper:
 
     def count(self):
         wd = self.app.wd
-        return len(wd.find_elements_by_name("selected[]"))
+        self.app.open_home_page()
+        return len(wd.find_elements_by_css_selector("tr[name='entry']"))
 
     user_cache = None
 
