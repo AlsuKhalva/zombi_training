@@ -74,9 +74,9 @@ class FormHelper:
     def get_contacts_list(self):
         wd = self.app.wd
         self.app.open_home_page()
-        contacts = []
+        user = []
         for element in wd.find_elements_by_css_selector("tr[name='entry']"):
             el_first_name = element.text
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(first_name=el_first_name, id=id))
-        return contacts
+            user.append(Contact(first_name=el_first_name, id=id))
+        return user
