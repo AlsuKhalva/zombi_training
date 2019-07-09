@@ -100,7 +100,7 @@ class FormHelper:
             for element in wd.find_elements_by_css_selector("tr[name='entry']"):
                 cells = element.find_elements_by_tag_name("td")
                 el_first_name = cells[2].text
-                el_notes = cells[1].text
+                el_last_name = cells[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.user_cache.append(Contact(id=id, first_name=el_first_name, notes=el_notes))
+                self.user_cache.append(Contact(id=id, first_name=el_first_name, last_name=el_last_name))
         return list(self.user_cache)
