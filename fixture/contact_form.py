@@ -55,6 +55,8 @@ class FormHelper:
         self.change_field_value("firstname", contact.first_name)
         self.change_field_value("lastname", contact.last_name)
         self.change_field_value("email", contact.email)
+        self.change_field_value("email2", contact.email2)
+        self.change_field_value("email3", contact.email3)
         self.change_field_value("home", contact.homephone)
         self.change_field_value("work", contact.workphone)
         self.change_field_value("mobile", contact.mobilephone)
@@ -102,28 +104,36 @@ class FormHelper:
             self.user_cache = []
             for element in wd.find_elements_by_css_selector("tr[name='entry']"):
                 cells = element.find_elements_by_tag_name("td")
-                el_first_name = cells[2].text
-                el_last_name = cells[1].text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
+                el_last_name = cells[1].text
+                el_first_name = cells[2].text
+                el_address = cells[3].text
+                all_emails = cells[4].text
+                all_phones = cells[5].text
                 self.user_cache.append(Contact(id=id, first_name=el_first_name, last_name=el_last_name,
-                                               homephone=all_phones[0], mobilephone=all_phones[1],
-                                               workphone=all_phones[2], secondaryphone=all_phones[3]))
+                                               address=el_address,
+                                               all_phones_from_home_page=all_phones,
+                                               all_emails_from_home_page=all_emails))
         return list(self.user_cache)
 
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
         self.select_edit_contact_by_index(index)
+        id = wd.find_element_by_name("id").get_attribute("value")
         first_name = wd.find_element_by_name("firstname").get_attribute("value")
         last_name = wd.find_element_by_name("lastname").get_attribute("value")
-        id = wd.find_element_by_name("id").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         homephone = wd.find_element_by_name("home").get_attribute("value")
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
         return Contact(first_name=first_name, last_name=last_name, id=id,
-                       homephone=homephone, mobilephone=mobilephone,
-                       workphone=workphone, secondaryphone=secondaryphone)
+                       homephone=homephone, mobilephone=mobilephone, workphone=workphone, secondaryphone=secondaryphone,
+                       email=email, email2=email2, email3=email3,
+                       address=address)
 
     def open_user_view_by_index(self, index):
         wd = self.app.wd
