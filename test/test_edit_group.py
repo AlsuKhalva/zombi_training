@@ -19,6 +19,7 @@ def test_edit_some_group_name(app, db, check_ui):
         assert sorted(list(map(clean, new_groups)), key=Group.id_or_max) == sorted(app.group.get_group_list(),
                                                                                   key=Group.id_or_max)
 
+
 #def test_edit_first_group_name(app):
  #   if app.group.count() == 0:
   #      app.group.create(Group(name="VVVVVVV"))

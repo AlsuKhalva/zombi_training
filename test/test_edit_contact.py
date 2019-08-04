@@ -16,8 +16,8 @@ def test_edit_some_contact_name(app, db, check_ui):
     assert sorted(old_contacts_list, key=Contact.id_or_max) == sorted(new_contacts_list, key=Contact.id_or_max)
     if check_ui:
         def clean(user):
-            return Contact(id=user.id, first_name=user.firstname.rstrip())
-        assert sorted(list(map(clean, new_contacts_list)), key=Contact.id_or_max) == sorted(app.contact.get_contacts_list(),
+            return Contact(id=user.id, first_name=user.first_name.rstrip())
+        assert sorted(list(map(clean, new_contacts_list)), key=Contact.id_or_max) == sorted(app.form.get_contacts_list(),
                                                                                   key=Contact.id_or_max)
 
 #def test_edit_first_contact_notes(app):

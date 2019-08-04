@@ -13,4 +13,4 @@ def test_add_contact(app, db, json_contacts, check_ui):
         def clean(user):
             return Contact(id=user.id, first_name=user.first_name.rstrip())
         assert sorted(list(map(clean, new_contacts_list)), key=Contact.id_or_max) == sorted(app.form.get_contacts_list(),
-                                                                                  key=Contact.id_or_max)
+            key=Contact.id_or_max)
