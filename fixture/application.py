@@ -33,7 +33,13 @@ class Application:
         wd = self.wd
         if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("searchstring")) > 0):
             wd.get(self.base_url)
-            
+
+    def contacts_in_group_page(self, id_group):
+        wd = self.wd
+        if not (wd.current_url == "http://localhost/addressbook/?group=%s" % id_group
+                and len(wd.find_element_by_name("remove")) > 0):
+            wd.get("http://localhost/addressbook/?group=%s" % id_group)
+
     def is_element_present(self, how, what):
         try:
             self.wd.find_element(by=how, value=what)

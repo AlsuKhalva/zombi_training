@@ -1,6 +1,7 @@
 import time
 from model.contact import Contact
 import re
+from selenium.webdriver.support.ui import Select
 
 class FormHelper:
 
@@ -54,6 +55,20 @@ class FormHelper:
         self.app.open_home_page()
         self.user_cache = None
 
+    def add_contact_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_css_selector("select[name='to_group']")).select_by_value('%s' % group_id)
+        wd.find_element_by_xpath("//input[@value='Add to']").click()
+
+    def delete_contact_from_group(self, id_group):
+        wd = self.app.wd
+        self.app.contacts_in_group_page(id_group)
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_name("remove").click()
+
     def select_contact_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
@@ -63,6 +78,10 @@ class FormHelper:
         wd = self.app.wd
         self.app.open_home_page()
         wd.find_elements_by_css_selector("img[alt='Edit']")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def open_contact_to_edit_by_id(self, id):
         wd = self.app.wd
